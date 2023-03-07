@@ -12,6 +12,7 @@ $$
 $$
 u = 0 \qquad \mbox{ on } \partial\Omega.
 $$
+
 This solver answers in the affirmative the question of Fortunato-Townsend as to the existence of an optimal-complexity spectral method for the above BVP,
 in a simpler alternative fashion to their paper [1].
 A question remains about the improved algebraic convergence rate of their
@@ -103,11 +104,13 @@ Use of a FDST might improve the prefactor in solution time.
    f_{ml} = \frac{2^2}{\pi^2} \int_0^1 \sin m\pi x \, \sin l\pi y \, dxdy
    = \frac{4}{\pi^2ml},
    $$
+   
    so that by the PDE,
 
    $$
    u_{ml} = \frac{4}\{\pi^2ml(m^2+l^2)},
    $$
+   
    which has $1/k^3$ decay along
    the axes (due to the dominant edge singularities)
    but $1/k^4$ along generic directions (perhaps due to corners). This explains
