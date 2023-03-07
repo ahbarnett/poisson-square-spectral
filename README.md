@@ -98,10 +98,12 @@ Use of a FDST might improve the prefactor in solution time.
    \left(1 - \frac{\cosh l\pi(x-1/2)}{\cosh l \pi/2}\right)
    \sin l \pi y.
    $$
+   
    This indicates $1/k^3$ decay in the $y$ Fourier direction but
    does not give complete insight into the numerical
    convergence. Better is to get the 2D Fourier series coefficients analytically
    via the Euler--Fourier integrals
+   
    $$
    f_{ml} = \frac{2^2}{\pi^2} \int_0^1 \sin m\pi x \, \sin l\pi y \, dxdy
    = \frac{4}{\pi^2ml},
