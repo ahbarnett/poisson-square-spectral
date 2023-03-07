@@ -79,8 +79,8 @@ Use of a FDST might improve the prefactor in solution time.
    in $[1,2]\times[1,2]$. Thus each edge has a discontinuity in $f$,
    to the PDE gives that $u$ is $C^1$ but not $C^2$ there.
    Naively (thinking in 1D)
-   one might expect that $|f_{ml}| = {\cal O}(1/k_{ml})$ so that
-   $|u_{ml}| = {\cal O}(1/k_{ml}^3)$,
+   one might expect that $f_{ml} = {\cal O}(1/k_{ml})$ so that
+   $u_{ml} = {\cal O}(1/k_{ml}^3)$,
    and summing the truncated (1D) tail of such coefficients from $n$ to $\infty$
    one might get an error ${\cal O}(1/n^2)$.
    Indeed this algebraic rate is observed:
