@@ -150,7 +150,7 @@ decaying as $1/n^3$ rather than $1/n^2$.
 
 ### Open questions
 
-1. How much better is the algebraic rate of the Chebyshev grid method of Fortunato-Townsend than the $1/n^2$ we observe? Conjecture it could be $1/n^4$.
+1. How much better is the algebraic rate of the Chebyshev grid method of Fortunato-Townsend than the $1/n^2$ we observe? Conjecture it could be $1/n^4$, ie always twice the algebraic rate.
 
    The argument goes as follows. A Chebyshev series on $x\in[0,1]$
    is a Fourier series
@@ -168,9 +168,9 @@ decaying as $1/n^3$ rather than $1/n^2$.
 ### References
 
 [1]. D. Fortunato and A. Townsend, "Fast Poisson solvers for spectral methods",
-IMA J. Numer. Anal. _40_, 1994--2018 (2020).
+IMA J. Numer. Anal. **40**, 1994--2018 (2020).
 
-[2]. M. Bazant, "Exact solutions and physical analogies for unidirectional flows", Phys. Rev. Fluids _1_, 024001 (2016).
+[2]. M. Bazant, "Exact solutions and physical analogies for unidirectional flows", Phys. Rev. Fluids **1**, 024001 (2016).
 
 [3]. H. Bruus, *Theoretical Microfluidics* (Oxford University Press, Oxford, 2008).
 
