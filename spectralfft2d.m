@@ -90,15 +90,18 @@ axis tight equal xy; colorbar
 disp('fig3: conv rate on C-infty f whose reflection to [0,2]^2 non-smooth...')
 rhsfun = @(x,y) 1 + 0*x;     % identically 1; reflects to a "1,-1,1,-1 4-junc"
 ns = 2.^(4:10);        % conv test, all n must be even, now geom spaced
+xt=0.75; yt=0.625;   % fixed test point, must be multiple of 1/16 to hit grid!
 us = nan*ns;
 for i=1:numel(ns), n=ns(i);
   [u info] = spectralfft2d(rhsfun,n);
-  us(i) = u(3*n/4+1,5*n/8+1);   % extract val at same (0.75,0.625), offcenter
+  us(i) = u(n*xt+1,n*yt+1);   % extract val at fixed (xt,yt), offcenter
 end
-% note we could also use analytic torsion soln (sum of sinh*cosh) here...
-figure(3); clf; set(gcf,'position',[200 200 1400 300]); ns = ns(1:end-1);
-subplot(1,4,1); loglog(ns,abs(us(1:end-1)-us(end))/us(end),'+-');
-xlabel('n'); ylabel('est u err'); hold on; plot(ns,ns.^-2,'r--');
+nn = 1:2:1e4;       % odd terms for exact soln sum, slow conv 1/n^3, err 1e-12
+xterm = (1-cosh(nn*pi*(xt-0.5))./cosh(nn*pi/2)); xterm(30:end)=1; % fix NaNs
+uex = (4/pi^3)*sum(nn.^-3 .* xterm .*sin(nn*pi*yt));  % 1D F.S. sum formula
+figure(3); clf; set(gcf,'position',[200 200 1400 300]);
+subplot(1,4,1); loglog(ns,abs(us-uex)/uex,'+-');
+xlabel('n'); ylabel('u err'); hold on; plot(ns,ns.^-2,'r--');
 legend('u err', '1/n^2'); title('u ptwise conv');
 subplot(1,4,2); g = (0:n)/n; [xx yy] = ndgrid(g,g);
 imagesc(g,g,rhsfun(xx,yy)'); xlabel('x'); ylabel('y'); title('f')
