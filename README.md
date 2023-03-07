@@ -105,7 +105,7 @@ the 2D Fourier series coefficients analytically via the Euler--Fourier
 integrals
    
 $$
-f_{ml} = \frac{2^2}{\pi^2} \int_0^1 \sin m\pi x \, \sin l\pi y \, dxdy
+f_{ml} = \frac{2^2}{\pi^2} \int_0^1 \sin m\pi \\, x \sin l\pi y \\, dxdy
 = \frac{4}{\pi^2ml},
 $$
    
@@ -157,11 +157,11 @@ decaying as $1/n^3$ rather than $1/n^2$.
    in $\theta$ where $\pi (x-1/2) = \cos \theta$. At the left endpoint
    $x\sim \theta^2$.
    We expect the PDE to have at a vertical edge the
-   singularity $(x)_+^\alpha$ of power $\alpha=2$, which would give
+   singularity $x_{+}^\alpha$ of power $\alpha=2$, which would give
    Fourier coefficient decay of $1/k^{1+\alpha} = 1/k^3$. But the
-   singularity in $\theta$ is $(\theta)_+^4$, so the Chebyshev
+   singularity in $\theta$ is $\theta_{+}^4$, so the Chebyshev
    coefficient decay should be $1/k^{1+2\alpha} = 1/k^5$.
-   Summing the tail from $k=n$ to $\infty$ gives error ${cal O}(1/n^4)$.
+   Summing the tail from $k=n$ to $\infty$ gives error ${\cal O}(1/n^4)$.
    
 
 
