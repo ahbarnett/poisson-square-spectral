@@ -6,11 +6,12 @@ Letting $\Omega = [0,1]^2 \subset \mathbb{R}^2$, given $f$,
 the BVP is to solve for $u$ obeying
 
 $$
--\Delta u = f \qquad \mbox{ in } \Omega
-\\
-u = 0 \qquad \mbox{ on } \partial\Omega
-$$.
+-\Delta u = f \qquad \mbox{ in } \Omega,
+$$
 
+$$
+u = 0 \qquad \mbox{ on } \partial\Omega.
+$$
 This solver answers in the affirmative the question of Fortunato-Townsend as to the existence of an optimal-complexity spectral method for the above BVP,
 in a simpler alternative fashion to their paper [1].
 A question remains about the improved algebraic convergence rate of their
