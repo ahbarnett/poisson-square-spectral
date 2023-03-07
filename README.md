@@ -4,6 +4,7 @@ MATLAB demo of FFT-based ${\cal O}(n^2 \log n)$ solver for Poisson's equation wi
 
 Letting $\Omega = [0,1]^2 \subset \mathbb{R}^2$, given $f$,
 the BVP is to solve for $u$ obeying
+
 $$
 -\Delta u = f \qquad \mbox{ in } \Omega
 \\
@@ -28,12 +29,14 @@ The restriction to the sine series is implemented crudely
 by unfolding $f$ on $[0,1]^2$ into $\tilde f$ on $[0,2]^2$,
 using odd reflection symmetry about each wall, and on this
 larger periodic domain using the standard bivariate Fourier series
+
 $$
 \tilde f(x,y) = \sum_{m,l\in\mathbb{Z}}
 f_{ml} e^{i\pi(mx+ly)},
 \qquad
 \tilde u(x,y) = \sum_{m,l\in\mathbb{Z}} u_{ml} e^{i\pi(mx+ly)}.
 $$
+
 The boundary values of $f$, and their unfolded values, are set to zero,
 which guarantees $f_{ml} = 0$ when either $m$ or $l$ is even.
 The PDE then implies the spectral filter $u_{ml} = f_{ml}/\pi^2(m^2+l^2)$.
@@ -85,6 +88,7 @@ Use of a FDST might improve the prefactor in solution time.
    of square cross-section (eg see [2]).
    The usual series solution [3, eqn (2.47)] uses a Fourier series in, say, $y$, then
    solves an ODE via particular plus homogeneous solution in $x$, giving
+
    $$
    u(x,y) = \frac{4}{\pi^3} \sum_{l=1,3,5,\dots} \frac{1}{l^3}
    \left(1 - \frac{\cosh l\pi(x-1/2)}{\cosh l \pi/2}\right)
@@ -99,6 +103,7 @@ Use of a FDST might improve the prefactor in solution time.
    = \frac{4}{\pi^2ml},
    $$
    so that by the PDE,
+
    $$
    u_{ml} = \frac{4}\{\pi^2ml(m^2+l^2)},
    $$
