@@ -53,8 +53,10 @@ Use of a FDST might improve the prefactor in solution time.
 
 1. First we test an analytic single-wavenumber forcing
    $f(x,y) = (\sin \pi x)(\sin 3\pi y)$ for which the solution is
-   $u = (\pi^2 + (3\pi)^{-2}f$. We see instant convergence
+   $u = [\pi^2 + (3\pi)^2]^{-1}f$. We see instant convergence
    to relative error around $\epsilon_{mach}$ whenever $n \ge 3$.
+   Here is the unfolded $f$, 2D Fourier coefficients, unfolded $u$,
+   and $u$ on $\Omega$, for the somewhat arbitrary $n=17$:
 
    ![fig 1: analytic solution at single frequency](figs/fig1.png)
 
