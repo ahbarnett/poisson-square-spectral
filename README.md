@@ -87,39 +87,38 @@ Use of a FDST might improve the prefactor in solution time.
 
    ![fig 3: algebraic convergence for constant forcing, due to weak corner singularities](figs/fig3.png)
 
-   The solution for this last case is that of Poiseuille flow in a pipe of
-   square cross-section, or the torsion problem in elasticity for a bar
-   of square cross-section (eg see [2]).
-   The usual series solution [3, eqn (2.47)] uses a Fourier series in, say, $y$, then
-   solves an ODE via particular plus homogeneous solution in $x$, giving
+The solution for this last case is that of Poiseuille flow in a pipe
+of square cross-section, or the torsion problem in elasticity for a
+bar of square cross-section (eg see [2]).  The usual series solution
+[3, eqn (2.47)] uses a Fourier series in, say, $y$, then solves an ODE
+via particular plus homogeneous solution in $x$, giving
 
-   $$
-   u(x,y) = \frac{4}{\pi^3} \sum_{l=1,3,5,\dots} \frac{1}{l^3}
-   \left(1 - \frac{\cosh l\pi(x-1/2)}{\cosh l \pi/2}\right)
-   \sin l \pi y.
-   $$
+$$
+u(x,y) = \frac{4}{\pi^3} \sum_{l=1,3,5,\dots} \frac{1}{l^3}
+\left(1 - \frac{\cosh l\pi(x-1/2)}{\cosh l \pi/2}\right)
+\sin l \pi y.
+$$
    
-   This indicates $1/k^3$ decay in the $y$ Fourier direction but
-   does not give complete insight into the numerical
-   convergence. Better is to get the 2D Fourier series coefficients analytically
-   via the Euler--Fourier integrals
+This indicates $1/k^3$ decay in the $y$ Fourier direction but does not
+give complete insight into the numerical convergence. Better is to get
+the 2D Fourier series coefficients analytically via the Euler--Fourier
+integrals
    
-   $$
-   f_{ml} = \frac{2^2}{\pi^2} \int_0^1 \sin m\pi x \, \sin l\pi y \, dxdy
-   = \frac{4}{\pi^2ml},
-   $$
+$$
+f_{ml} = \frac{2^2}{\pi^2} \int_0^1 \sin m\pi x \, \sin l\pi y \, dxdy
+= \frac{4}{\pi^2ml},
+$$
    
-   so that by the PDE,
+so that by the PDE,
 
-   $$
-   u_{ml} = \frac{4}\{\pi^2ml(m^2+l^2)},
-   $$
+$$
+u_{ml} = \frac{4}\{\pi^2ml(m^2+l^2)},
+$$
    
-   which has $1/k^3$ decay along
-   the axes (due to the dominant edge singularities)
-   but $1/k^4$ along generic directions (perhaps due to corners). This explains
-   the tail sum outside the box $|m|,|l| \le n$ decaying as $1/n^3$ rather
-   than $1/n^2$.
+which has $1/k^3$ decay along the axes (due to the dominant edge
+singularities) but $1/k^4$ along generic directions (perhaps due to
+corners). This explains the tail sum outside the box $|m|,|l| \le n$
+decaying as $1/n^3$ rather than $1/n^2$.
 
 
 ### Documentation
