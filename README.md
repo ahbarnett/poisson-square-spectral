@@ -21,10 +21,13 @@ $$
 The solver `spectralfft2d` in this repo answers in the affirmative the question of Fortunato-Townsend as to the existence of an optimal-complexity spectral method for the above BVP,
 and in a simpler alternative fashion to their proposal [1].
 However, in cases where the solution
-has singularities on the edge of the domain, renderering both solvers
-merely algebraically convergent, the proposal of [1]
-is faster convergent due to its node clustering at edges.
-We make this comparison below.
+has singularities on the domain boundary---rendering both solvers
+merely algebraically convergent---the proposal of [1]
+converges at least twice as fast, due to its node clustering at edges.
+And if the solution is analytic in a larger domain
+(something unusual in physical problems) the proposal of [1]
+may be spectrally convergent while the FFT solver merely algebraic.
+We make the accuracy and speed comparisons below.
 
 ### Usage
 
@@ -176,12 +179,15 @@ since the FFT solver has a node spacing $\pi/2$ times smaller than
 for Chebyshev around the middle of the domain. Both norms are equivalent.
 
 The 4th ("Smooth solution") tests $f$ for which the solution
-$u(x,y)$ is a random smooth function times $x(1-x)y(1-y)$.
-Since the Fourier series $f_ml$ still has $1/n$ decay, the FFT solver
-has $1/n^2$ convergence, as for $f\equiv 1$ above,
-yet the Chebyshev solver is spectrally convergent.
-However, this example is somewhat artificial,
-not being representative of solutions that arise physically
+$u(x,y)$ is a random function analytic in a larger domain,
+times $x(1-x)y(1-y)$ which enforces the zero boundary conditions.
+Since the Fourier series $u_{ml}$ still has $1/m^3$ decay, the FFT solver
+has $1/n^2$ convergence, as with $f\equiv 1$ above.
+Yet, here the Chebyshev solver is spectrally convergent because it
+only cares about the domain of analyticity of $u$ or $f$.
+Although such analytic test solution are used for PDE solvers,
+we feel that this example is somewhat artificial,
+since it is not representative of solutions that arise physically
 with boundary conditions on such domains.
 
 **Speed**. A crude timing comparison at $n=64$ nodes per dimension gives
