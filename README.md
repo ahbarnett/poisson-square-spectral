@@ -137,12 +137,10 @@ decaying as $1/n^3$ rather than $1/n^2$.
 ### Comparison with Chebyshev solver of Fortunato-Townsend
 
 **Convergence rate.**
+We start with the question:
 How much better is the algebraic rate of the Chebyshev grid method of Fortunato-Townsend than the $1/n^2$ we observe for the FFT solver
 in the case of the $f\equiv 1$ RHS?
-A conjecture by Barnett was that it was $1/n^4$, twice the algebraic rate.
-
- .. note:
-
+A conjecture by Barnett was that it should be $1/n^4$, twice the algebraic rate.
    The argument for the conjecture goes as follows. A Chebyshev series on $x\in[0,1]$
    is a Fourier series
    in $\theta$ where $\pi (x-1/2) = \cos \theta$. At the left endpoint
@@ -154,7 +152,7 @@ A conjecture by Barnett was that it was $1/n^4$, twice the algebraic rate.
    coefficient decay should be $1/k^{1+2\alpha} = 1/k^5$.
    Summing the tail from $k=n$ to $\infty$ gives error ${\cal O}(1/n^4)$.
    
-To test this we run `fft_vs_cheb`, and look at the first plot (labeled "One"):
+To test this idea we run `fft_vs_cheb`, and look at the first plot (labeled "One"):
 
 ![fig 4: convergence comparison of two solvers for four solutions](figs/fft_vs_cheb.png)
 
@@ -187,11 +185,12 @@ not being representative of solutions that arise physically
 with boundary conditions on such domains.
 
 **Speed**. A crude timing comparison at $n=64$ nodes per dimension gives
-0.0013 sec for `spectralfft2d` vs 0.019 for `chebfun2.poisson`.
+0.0013 sec for `spectralfft2d` vs 0.019 sec for `chebfun2.poisson`.
 The FFT solver is thus about 13 times faster. Since the Chebyshev
 solver is iterative, this factor varies with the form of the solution.
 At the much larger grid size $n=512$,
-the ratio has dropped, and varies between about 0.8 and 2.7.
+the ratio has dropped, and varies between about 0.8 and 2.7 depending
+on the RHS.
 
 
 ### Documentation
