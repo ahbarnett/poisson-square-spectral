@@ -25,7 +25,7 @@ has singularities on the domain boundary---rendering both solvers
 merely algebraically convergent---the proposal of [1]
 converges at least twice as fast, due to its node clustering at edges.
 And if the solution is analytic in a larger domain
-(something unusual in physical problems) the proposal of [1]
+(something unusual in physical problems, although it may occur if the box is a subdomain in a solver for a larger domain) the proposal of [1]
 may be spectrally convergent while the FFT solver merely algebraic.
 We make the accuracy and speed comparisons below.
 
@@ -185,10 +185,12 @@ Since the Fourier series $u_{ml}$ still has $1/m^3$ decay, the FFT solver
 has $1/n^2$ convergence, as with $f\equiv 1$ above.
 Yet, here the Chebyshev solver is spectrally convergent because it
 only cares about the domain of analyticity of $u$ or $f$.
-Although such analytic test solution are used for PDE solvers,
-we feel that this example is somewhat artificial,
-since it is not representative of solutions that arise physically
-with boundary conditions on such domains.
+Although such analytic solutions are often used as tests
+for PDE solvers in the literature, they do not reflect the physical
+singularities that occur with generic RHS and homogeneous Dirichlet
+boundary conditions.
+However, they can occur when the square domain is the leaf (subdomain)
+in a larger solver, eg, HPS.
 
 **Speed**. A crude timing comparison at $n=64$ nodes per dimension gives
 0.0013 sec for `spectralfft2d` vs 0.019 sec for `chebfun2.poisson`.
@@ -197,6 +199,19 @@ solver is iterative, this factor varies with the form of the solution.
 At the much larger grid size $n=512$,
 the ratio has dropped, and varies between about 0.8 and 2.7 depending
 on the RHS.
+
+
+### To do list
+
+* Understand if the improved $L^2$ vs $L^\infty$ error norm in the
+  Chebyshev case for $f\equiv1$ is due to corners or edges. The hint
+  that it is due to a corner singularity comes from the observation
+  that in the analogous 1D BVP the solution $u(x) = x(1-x)/2$ should
+  have spectral accuracy with Chebyshev but only $1/n^2$ accuracy with
+  sine-reflection FFT.
+
+* Understand the case for inhomogeneous boundary data $u = g$ on
+  $\partial\Omega$, which occurs in the HPS and other settings.
 
 
 ### Documentation
