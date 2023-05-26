@@ -1,6 +1,11 @@
 # poisson-square-spectral
 
 MATLAB demo of FFT-based ${\cal O}(n^2 \log n)$ solver for Poisson's equation with homogeneous Dirichlet BCs on the square, on a regular $n\times n$ grid.
+A comparison against a fast Chebyshev solver is also made.
+
+Authors: Alex Barnett and Dan Fortunato (CCM, Flatiron Institute), March 2023.
+
+### Overview
 
 Letting $\Omega = [0,1]^2 \subset \mathbb{R}^2$, given $f$,
 the BVP is to solve for $u$ obeying
@@ -13,14 +18,22 @@ $$
 u = 0 \qquad \mbox{ on } \partial\Omega.
 $$
 
-This solver answers in the affirmative the question of Fortunato-Townsend as to the existence of an optimal-complexity spectral method for the above BVP,
-in a simpler alternative fashion to their paper [1].
-A question remains about the improved algebraic convergence rate of their
-solver over that of this repo, expected due to its Chebyshev node concentration towards edges, vs our uniform grid.
+The solver `spectralfft2d` in this repo answers in the affirmative the question of Fortunato-Townsend as to the existence of an optimal-complexity spectral method for the above BVP,
+and in a simpler alternative fashion to their proposal [1].
+However, in cases where the solution
+has singularities on the edge of the domain, renderering both solvers
+merely algebraically convergent, the proposal of [1]
+is faster convergent due to its node clustering at edges.
+We make this comparison below.
 
 ### Usage
 
-In MATLAB/Octave, run `spectralfft2d` without arguments, which performs a set of demo and convergence tests and produces the below figure outputs. The function is documented below.
+In MATLAB/Octave, run `spectralfft2d` without arguments, which performs a set of demo and convergence tests and produces the below figure outputs. This function is documented at the bottom of this document.
+
+To perform the comparison against the solver of [1], install a recent version
+of [chebfun](https://github.com/chebfun/chebfun), add `chebfun` to your
+MATLAB/Octave path, then run `fft_vs_cheb`. See below for discussion of output.
+
 
 ### Method
 
@@ -121,6 +134,66 @@ corners). This explains the tail sum outside the box $|m|,|l| \le n$
 decaying as $1/n^3$ rather than $1/n^2$.
 
 
+### Comparison with Chebyshev solver of Fortunato-Townsend
+
+**Convergence rate.**
+How much better is the algebraic rate of the Chebyshev grid method of Fortunato-Townsend than the $1/n^2$ we observe for the FFT solver
+in the case of the $f\equiv 1$ RHS?
+A conjecture by Barnett was that it was $1/n^4$, twice the algebraic rate.
+
+ ... note:
+
+   The argument for the conjecture goes as follows. A Chebyshev series on $x\in[0,1]$
+   is a Fourier series
+   in $\theta$ where $\pi (x-1/2) = \cos \theta$. At the left endpoint
+   $x\sim \theta^2$.
+   We expect the PDE to have at a vertical edge the
+   singularity $x_{+}^\alpha$ of power $\alpha=2$, which would give
+   Fourier coefficient decay of $1/k^{1+\alpha} = 1/k^3$. But the
+   singularity in $\theta$ is $\theta_{+}^4$, so the Chebyshev
+   coefficient decay should be $1/k^{1+2\alpha} = 1/k^5$.
+   Summing the tail from $k=n$ to $\infty$ gives error ${\cal O}(1/n^4)$.
+   
+To test this we run `fft_vs_cheb`, and look at the first plot (labeled "One"):
+
+![fig 4: convergence comparison of two solvers for four solutions](figs/fft_vs_cheb.png)
+
+Indeed, in the $L^\infty$ norm the rate is $1/n^2$ for the FFT solver
+but $1/n^4$ for the Chebyshev.
+However, in the $L^2$ norm the improvement is even better: from $1/n^2$
+for FFT to $1/n^6$ for Chebyshev. We believe this is due to
+the node clustering localizing the error.
+
+We now turn to the other three RHS tests in the above.
+In all cases note that for the FFT solver the two norms appear
+very similar (equivalent).
+For the 2nd ("Random") plot, the RHS $f$ is smoothly random and, as with
+$f\equiv1$, does not obey the reflection symmetry; the results are
+very similar to this 1st case.
+
+The 3rd ("Compactly supported") plot shows the same numerically
+localized Gaussian $f$ as in figure 2 above; we see both solvers
+are spectral with FFT slightly faster convergent. This is as expected
+since the FFT solver has a node spacing $\pi/2$ times smaller than
+for Chebyshev around the middle of the domain. Both norms are equivalent.
+
+The 4th ("Smooth solution") tests $f$ for which the solution
+$u(x,y)$ is a random smooth function times $x(1-x)y(1-y)$.
+Since the Fourier series $f_ml$ still has $1/n$ decay, the FFT solver
+has $1/n^2$ convergence, as for $f\equiv 1$ above,
+yet the Chebyshev solver is spectrally convergent.
+However, this example is somewhat artificial,
+not being representative of solutions that arise physically
+with boundary conditions on such domains.
+
+**Speed**. A crude timing comparison at $n=64$ nodes per dimension gives
+0.0013 sec for `spectralfft2d` vs 0.019 for `chebfun2.poisson`.
+The FFT solver is thus about 13 times faster. Since the Chebyshev
+solver is iterative, this factor varies with the form of the solution.
+At the much larger grid size $n=512$,
+the ratio has dropped, and varies between about 0.8 and 2.7.
+
+
 ### Documentation
 
 ```
@@ -148,22 +221,6 @@ decaying as $1/n^3$ rather than $1/n^2$.
 %    when f does not reflect to [0,2]^2 as a smooth function (see 3rd test).
 ```
 
-### Open questions
-
-1. How much better is the algebraic rate of the Chebyshev grid method of Fortunato-Townsend than the $1/n^2$ we observe? Conjecture it could be $1/n^4$, ie always twice the algebraic rate.
-
-   The argument goes as follows. A Chebyshev series on $x\in[0,1]$
-   is a Fourier series
-   in $\theta$ where $\pi (x-1/2) = \cos \theta$. At the left endpoint
-   $x\sim \theta^2$.
-   We expect the PDE to have at a vertical edge the
-   singularity $x_{+}^\alpha$ of power $\alpha=2$, which would give
-   Fourier coefficient decay of $1/k^{1+\alpha} = 1/k^3$. But the
-   singularity in $\theta$ is $\theta_{+}^4$, so the Chebyshev
-   coefficient decay should be $1/k^{1+2\alpha} = 1/k^5$.
-   Summing the tail from $k=n$ to $\infty$ gives error ${\cal O}(1/n^4)$.
-   
-
 
 ### References
 
@@ -177,4 +234,4 @@ IMA J. Numer. Anal. **40**, 1994--2018 (2020).
 
 ### Acknowledgments
 
-We thank Manas Rachh for useful discussion.
+We thank Manas Rachh for a useful discussion.

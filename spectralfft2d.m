@@ -22,7 +22,7 @@ function [u info] = spectralfft2d(rhsfun,n)
 % 2) Convergence should deteriorate to merely algebraic
 %    when f does not reflect to [0,2]^2 as a smooth function (see 3rd test).
 
-% Barnett 3/6/23
+% Author: Alex Barnett, 3/6/23
 if nargin==0, test_spectralfft2d; return; end
 g = (1:n-1)/n;            % interior 1D grid (n-1 pts)
 [xx yy] = ndgrid(g,g);
@@ -119,4 +119,4 @@ axis tight equal xy; colorbar
 % the tail sum of such appears to give u error of 1/kmax^2, ie 1/n^2.
 %
 % Question is: what is case for 2D solver based on product Cheby nodes?
-% (Fortunato-Townsend 2020 IMAJNA).
+% (Fortunato-Townsend 2020 IMAJNA). Answer: see fft_vs_cheb.m

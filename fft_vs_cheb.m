@@ -1,7 +1,12 @@
 function fft_vs_cheb()
+% script to compare spectralfft2d vs chebfun2.poisson of Fortunato-Townsend.
+%
+% This loops over four RHS functions and records both L^infty and L^2 errors.
+% It is packaged as function.
+% Author: Dan Fortunato, March 2023.
 
 rng(0)
-ns = 2.^(2:6);
+ns = 2.^(2:6);  % convergence study
 
 clf
 tiledlayout(1, 4);
@@ -10,11 +15,11 @@ set(gcf, 'position', [500 700 1600 400]);
 f = chebfun2(@(x,y) 1+0*x, [0 1 0 1]);
 makeplot(f, ns, 'One');
 
-f = randnfun2(1, [0 1 0 1]);
+f = randnfun2(1, [0 1 0 1]);     % a smooth random chebfun2 function
 makeplot(f, ns, 'Random');
 
 f = chebfun2(@(x,y) exp(-200*((x-0.6).^2 + (y-0.55).^2)), [0 1 0 1]);
-makeplot(f, ns, 'Compactly supported');
+makeplot(f, ns, 'Compactly supported');  % same RHS as fig2 of spectralfft2d
 
 x = chebfun2(@(x,y) x, [0 1 0 1]);
 y = chebfun2(@(x,y) y, [0 1 0 1]);
@@ -34,29 +39,41 @@ leg = legend('FFT, 2-norm', 'FFT, \infty-norm', 'Chebyshev, 2-norm', 'Chebyshev,
 leg.Layout.Tile = 'north';
 leg.Orientation = 'horizontal';
 
-shg
+shg  % brings current window forward
 
 end
 
 function makeplot(f, ns, ttl)
+% Make convergence plot for RHS f, in a sequence of tiled plot.
+% Inputs:
+%   f - chebfun2 object giving the RHS on [0,1]^2.
+%   ns - list of numbers of nodes (per dimension) for convergence study
+%   ttl - title string for the tiled plot
 
     % Adaptively compute a "true" solution:
     utrue = chebfun2.poisson(-f);
 
-    % FFT
+    nns = length(ns);
+    % FFT soln (called u)
     u = cell(length(ns), 1);
-    for k = 1:length(ns)
-        [~, info] = spectralfft2d(@(x,y) f(x,y), ns(k));
-        usym = chebfun2(info.u.', [0 2 0 2], 'trig');
-        u{k} = restrict(usym, [0 1 0 1]);
+    for k = 1:nns
+      t=tic;
+      [~, info] = spectralfft2d(@(x,y) f(x,y), ns(k));
+      tu = toc(t);
+      usym = chebfun2(info.u.', [0 2 0 2], 'trig');
+      u{k} = restrict(usym, [0 1 0 1]);
     end
 
-    % Chebyshev
+    % Chebyshev soln (called v)
     v = cell(length(ns), 1);
     for k = 1:length(ns)
-        v{k} = chebfun2.poisson(-f, 0, ns(k));
+      t=tic;
+      v{k} = chebfun2.poisson(-f, 0, ns(k));     % use ns(k) nodes
+      tv = toc(t);
     end
 
+    fprintf("timing of last run: FFT(u) %.3g s, vs Cheb(v) %.3g s (FFT is %.3g times faster)\n", tu, tv, tv/tu)
+    
     % Compute error
     uerr_2 = zeros(length(ns), 1); uerr_inf = zeros(length(ns), 1);
     verr_2 = zeros(length(ns), 1); verr_inf = zeros(length(ns), 1);
