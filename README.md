@@ -141,7 +141,7 @@ How much better is the algebraic rate of the Chebyshev grid method of Fortunato-
 in the case of the $f\equiv 1$ RHS?
 A conjecture by Barnett was that it was $1/n^4$, twice the algebraic rate.
 
- ... note:
+ .. note:
 
    The argument for the conjecture goes as follows. A Chebyshev series on $x\in[0,1]$
    is a Fourier series
