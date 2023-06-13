@@ -58,7 +58,7 @@ $$
 The boundary values of $f$, and their unfolded values, are set to zero,
 which guarantees $f_{ml} = 0$ when either $m$ or $l$ is even.
 The PDE then implies the spectral filter $u_{ml} = f_{ml}/\pi^2(m^2+l^2)$.
-Numerically the 2D array $f_{ml}$ for $m,l\in\{-n,-n+1,\dots,n-1\}$
+Numerically the 2D array $f_{ml}$ for $m,l={-n,-n+1,\dots,n-1\}$
 is found from an inverse 2D FFT of the grid samples.
 The multiplicative filter is then applied, and a forward 2D FFT evaluates
 the series back at the (unfolded) nodes $(i/n,j/n)$ for $i,j = 0,1,\dots,2n-1$.
