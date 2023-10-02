@@ -83,7 +83,7 @@ Use of a FDST might improve the prefactor in solution time.
    The observed convergence with $n$ (the maximum frequency) is spectral,
    possibly even super-exponential:
 
-   ![fig 2: spectral convergence for numerically localized Gaussian forcing](figs/fig2.png)
+![fig 2: spectral convergence for numerically localized Gaussian forcing](figs/fig2.png)
 
    This is as expected since (at least down to a level $\epsilon$)
    the decay of $|f_{ml}|$ is super-exponential in
@@ -101,7 +101,7 @@ Use of a FDST might improve the prefactor in solution time.
    one might get an error ${\cal O}(1/n^2)$.
    Indeed this algebraic rate is observed:
 
-   ![fig 3: algebraic convergence for constant forcing, due to weak corner singularities](figs/fig3.png)
+![fig 3: algebraic convergence for constant forcing, due to weak corner singularities](figs/fig3.png)
 
 The solution for this last case is that of Poiseuille flow in a pipe
 of square cross-section, or the torsion problem in elasticity for a
