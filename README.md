@@ -74,7 +74,7 @@ Use of a FDST might improve the prefactor in solution time.
    Here is the unfolded $\tilde f$, 2D Fourier coefficients, unfolded $\tilde u$,
    then $u$ on $\Omega$, for the somewhat arbitrary $n=17$:
 
-   ![fig 1: analytic solution at single frequency](/figs/fig1.png)
+![fig 1: analytic solution at single frequency](figs/fig1.png)
 
 2. Now we test $f$ a Gaussian bump sufficiently narrow that its
    $\epsilon$-support lies within $\Omega$ for $\epsilon \sim 10^{-14}$.
@@ -83,7 +83,7 @@ Use of a FDST might improve the prefactor in solution time.
    The observed convergence with $n$ (the maximum frequency) is spectral,
    possibly even super-exponential:
 
-   ![fig 2: spectral convergence for numerically localized Gaussian forcing](/figs/fig2.png)
+   ![fig 2: spectral convergence for numerically localized Gaussian forcing](figs/fig2.png)
 
    This is as expected since (at least down to a level $\epsilon$)
    the decay of $|f_{ml}|$ is super-exponential in
@@ -101,7 +101,7 @@ Use of a FDST might improve the prefactor in solution time.
    one might get an error ${\cal O}(1/n^2)$.
    Indeed this algebraic rate is observed:
 
-   ![fig 3: algebraic convergence for constant forcing, due to weak corner singularities](/figs/fig3.png)
+   ![fig 3: algebraic convergence for constant forcing, due to weak corner singularities](figs/fig3.png)
 
 The solution for this last case is that of Poiseuille flow in a pipe
 of square cross-section, or the torsion problem in elasticity for a
@@ -157,7 +157,7 @@ A conjecture by Barnett was that it should be $1/n^4$, twice the algebraic rate.
    
 To test this idea we run `fft_vs_cheb`, and look at the first plot (labeled "One"):
 
-![fig 4: convergence comparison of two solvers for four solutions](/figs/fft_vs_cheb.png)
+![fig 4: convergence comparison of two solvers for four solutions](figs/fft_vs_cheb.png)
 
 Indeed, in the $L^\infty$ norm the rate is $1/n^2$ for the FFT solver
 but $1/n^4$ for the Chebyshev.
